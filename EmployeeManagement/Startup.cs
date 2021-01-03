@@ -62,7 +62,10 @@ namespace EmployeeManagement
             //    await context.Response.WriteAsync("Hello from first middleware ");
             //    await next();
             //});
-            app.UseDefaultFiles();
+            DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            defaultFilesOptions.DefaultFileNames.Clear(); // this is to clear any default files 
+            defaultFilesOptions.DefaultFileNames.Add("foo.html"); // making foo.html as default
+            app.UseDefaultFiles(defaultFilesOptions);// pass the instance of DefaultFileOptions here..
             app.UseStaticFiles();
 
             app.Run(async (context) =>
