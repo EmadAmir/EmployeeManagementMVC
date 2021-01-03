@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,13 +36,42 @@ namespace EmployeeManagement
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapGet("/", async context =>
+            //    {
+            //        await context.Response.WriteAsync(_config["MyKey"]);
+            //    });
+            //});
+            //app.Use(async (context, next) =>
+            //{
+            //    logger.LogInformation("MW1: Incomming Request");
+            //    await next();
+            //    logger.LogInformation("MW1: Outgoing Response");
+            //});
+
+            //app.Use(async (context, next) =>
+            //{
+            //    logger.LogInformation("MW2: Incomming Request");
+            //    await next();
+            //    logger.LogInformation("MW2: Outgoing Response");
+            //});
+
+            //app.Use(async (context, next) =>
+            //{
+            //    await context.Response.WriteAsync("Hello from first middleware ");
+            //    await next();
+            //});
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
+            app.Run(async (context) =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync(_config["MyKey"]);
-                });
+                await context.Response.WriteAsync("Hello Naruto ");
+                
             });
+
+
         }
     }
 }
