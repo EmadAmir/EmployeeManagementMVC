@@ -62,11 +62,17 @@ namespace EmployeeManagement
             //    await context.Response.WriteAsync("Hello from first middleware ");
             //    await next();
             //});
-            DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
-            defaultFilesOptions.DefaultFileNames.Clear(); // this is to clear any default files 
-            defaultFilesOptions.DefaultFileNames.Add("foo.html"); // making foo.html as default
-            app.UseDefaultFiles(defaultFilesOptions);// pass the instance of DefaultFileOptions here..
-            app.UseStaticFiles();
+            //DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            //defaultFilesOptions.DefaultFileNames.Clear(); // this is to clear any default files 
+            //defaultFilesOptions.DefaultFileNames.Add("foo.html"); // making foo.html as default
+            //app.UseDefaultFiles(defaultFilesOptions);// pass the instance of DefaultFileOptions here..
+            //app.UseStaticFiles();
+
+            //UseFileServer combines the functionality of UseDefaultFiles(), UseStaticFiles() and UseDirectoryBrowser()
+            FileServerOptions fileServerOptions = new FileServerOptions();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();// this is to clear any default files
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
+            app.UseFileServer(fileServerOptions);
 
             app.Run(async (context) =>
             {
