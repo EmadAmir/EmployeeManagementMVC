@@ -31,7 +31,11 @@ namespace EmployeeManagement
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions()
+                {
+                    SourceCodeLineCount = 10
+                };
+                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
             }
 
             app.UseRouting();
@@ -69,13 +73,14 @@ namespace EmployeeManagement
             //app.UseStaticFiles();
 
             //UseFileServer combines the functionality of UseDefaultFiles(), UseStaticFiles() and UseDirectoryBrowser()
-            FileServerOptions fileServerOptions = new FileServerOptions();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();// this is to clear any default files
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
-            app.UseFileServer(fileServerOptions);
+            //FileServerOptions fileServerOptions = new FileServerOptions();
+            //fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();// this is to clear any default files
+            //fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html");
+            app.UseFileServer();
 
             app.Run(async (context) =>
             {
+                throw new Exception("Some error processing the request");
                 await context.Response.WriteAsync("Hello Naruto ");
                 
             });
